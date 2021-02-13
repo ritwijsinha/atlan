@@ -1,10 +1,16 @@
-import { observable, reaction, action } from 'mobx';
+import { observable, makeObservable } from 'mobx';
+import { isNil } from 'lodash';
 
 export default class UIStore {
-  @observable isEditorCollapsed = false;
+  constructor () {
+    this.isEditorCollapsed = false;
 
-  @action
+    makeObservable(this, {
+      isEditorCollapsed: observable
+    });
+  }
+
   collapseEditor (value) {
-    this.isEditorCollapsed = value;
+    !isNil(value) && (this.isEditorCollapsed = value);
   }
 }

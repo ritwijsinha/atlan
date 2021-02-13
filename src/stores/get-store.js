@@ -1,20 +1,6 @@
 import stores from './index';
 
-var app = window.app;
-
-/**
- * Initializes a stores list on `window.app` for lookup.
- *
- * @returns {Object}
- */
-function initializeStoreCache () {
-  app = app || {};
-
-  // attach stores to pm
-  app.stores = {};
-
-  return app.stores;
-}
+let _storesCache = {};
 
 /**
  * Returns the store instance for any model.
@@ -22,8 +8,6 @@ function initializeStoreCache () {
  * @param {String} storeName
  */
 function getStore (storeName) {
-  let _storesCache = app.stores || initializeStoreCache();
-
   // unknown store
   if (!stores[storeName]) {
     throw new Error(`Could not get store for ${storeName}. Store not defined.`);

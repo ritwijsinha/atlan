@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import './styles/index.css';
 import App from './view/App';
 import reportWebVitals from './reportWebVitals';
-import _ from 'lodash';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -17,5 +16,5 @@ ReactDOM.render(
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
 
-// Expose lodash globally
-global._ = _;
+// Initialize `window.app` object
+window.app = {};
