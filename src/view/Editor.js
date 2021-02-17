@@ -185,6 +185,7 @@ export default class Editor extends React.Component {
             color='primary'
             variant='contained'
             onClick={EditorStore.runQuery}
+            disabled={!EditorStore.query}
           >
             Run
           </Button>

@@ -36,19 +36,21 @@ export default class App extends React.Component {
         <SplitPane onChange={this.debouncedHandleResize} split='vertical'>
           <SplitPane
             initialSize='75%'
-            minSize='50%'
+            minSize='60%'
             split='horizontal'
             onChange={this.debouncedHandleResize}
           >
             <Pane
               className='pane editor-pane'
               initialSize='50%'
+              minSize='25%'
             >
               <Editor ref={(ref) => this.editorRef = ref} />
             </Pane>
             <Pane
               className='pane response-pane'
               initialSize='50%'
+              minSize='25%'
             >
               <Response ref={(ref) => this.responseRef = ref} />
             </Pane>
@@ -56,8 +58,8 @@ export default class App extends React.Component {
           <Pane
             className='pane sidebar-pane'
             initialSize='25%'
-            maxSize='50%'
-            minSize='10%'
+            maxSize='40%'
+            minSize='20%'
           >
             <Sidebar ref={(ref) => this.sidebarRef = ref} />
           </Pane>

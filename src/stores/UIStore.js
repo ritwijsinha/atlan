@@ -13,10 +13,10 @@ export default class UIStore {
       isResponseCollapsed: observable,
       activeSidebarTab: observable,
       isResponseLoading: observable,
-      collapseEditor: action,
-      collapseResponse: action,
-      setActiveSidebarTab: action,
-      setResponseLoading: action
+      collapseEditor: action.bound,
+      collapseResponse: action.bound,
+      setActiveSidebarTab: action.bound,
+      setResponseLoading: action.bound
     });
   }
 

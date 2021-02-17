@@ -1,25 +1,68 @@
-import { observable, makeObservable, action } from 'mobx';
-import { isNil } from 'lodash';
+import { observable, makeObservable, action, computed } from 'mobx';
+import { isNil, filter, includes, toLower, forEach } from 'lodash';
 import { getStore } from './get-store';
 
 export default class ResponseStore {
   constructor () {
     this.type = '';
-    this.entries = {};
+    this.responseData = {};
+    this.filterQuery = '';
+    this.selectedIndex = null;
 
     makeObservable(this, {
       type: observable,
-      entries: observable,
-      setResponse: action
+      responseData: observable,
+      filterQuery: observable,
+      selectedIndex: observable,
+      setResponse: action,
+      setFilterQuery: action.bound,
+      selectResponse: action.bound,
+      entries: computed
+    });
+  }
+
+  get entries () {
+    if (!this.filterQuery.trim()) {
+      return this.responseData;
+    }
+
+    const lowerCasedFilterQuery = toLower(this.filterQuery);
+
+    return filter(this.responseData, (responseItem) => {
+      let isIncluded = false;
+
+      forEach(responseItem, (value) => {
+        if (isIncluded) {
+          return;
+        }
+
+        if (includes(toLower(value), lowerCasedFilterQuery)) {
+          isIncluded = true;
+        }
+      });
+
+      return isIncluded;
     });
   }
 
   setResponse (response) {
-    const { entries, type } = response;
+    const { entries, type } = response,
+      { setResponseLoading } = getStore('UIStore'),
+      { addHistory } = getStore('HistoryStore'),
+      { query } = getStore('EditorStore');
 
     this.type = type;
-    this.entries = entries;
+    this.responseData = entries;
 
-    getStore('UIStore').setResponseLoading(false);
+    setResponseLoading(false);
+    addHistory(query, { type: this.type, responseData: this.responseData });
+  }
+
+  setFilterQuery (value) {
+    !isNil(value) && (this.filterQuery = value);
+  }
+
+  selectResponse (index) {
+    this.selectedIndex = index;
   }
 }

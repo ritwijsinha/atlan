@@ -54,9 +54,7 @@ export default class Sidebar extends React.Component {
           <Tab label='Info' id={0} />
           <Tab label='History' id={1} />
         </Tabs>
-        <div>
-          { this.getActiveView() }
-        </div>
+        { this.getActiveView() }
       </div>
     );
   }

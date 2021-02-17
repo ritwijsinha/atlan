@@ -1,182 +1,131 @@
 import React from 'react';
-import clsx from 'clsx';
-import { withStyles } from '@material-ui/core/styles';
-import TableCell from '@material-ui/core/TableCell';
+import { observer, Observer } from 'mobx-react';
 import Paper from '@material-ui/core/Paper';
-import { AutoSizer, Column, Table } from 'react-virtualized';
+import { AutoSizer } from 'react-virtualized';
 import { map } from 'lodash';
+import { FixedSizeList as VirtualizedList } from 'react-window';
+import { getStore } from '../stores/get-store';
+import { findDOMNode } from 'react-dom';
 
-/**
- *
- * @param {Object[]} rows Rows to display in the table
- */
-function getColumnsFromRow (row) {
-  return map(row, (value, key) => {
-    return {
-      dataKey: key,
-      label: key,
-      width: 150
-    };
-  });
-}
+const ITEM_HEIGHT = 32;
 
-const styles = (theme) => ({
-  flexContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    boxSizing: 'border-box'
-  },
-  table: {
-    '& .ReactVirtualized__Table__headerRow': {
-    flip: false,
-    paddingRight: theme.direction === 'rtl' ? '0 !important' : undefined
-    }
-  },
-  tableRow: {
-    cursor: 'pointer'
-  },
-  tableRowHover: {
-    '&:hover': {
-      backgroundColor: theme.palette.grey[200]
-    }
-  },
-  tableCell: {
-    flex: 1
-  },
-  noClick: {
-    cursor: 'initial'
-  }
-});
-
-class MuiVirtualizedTable extends React.PureComponent {
-  static defaultProps = {
-    headerHeight: 48,
-    rowHeight: 48
-  };
-
-  getRowClassName = ({ index }) => {
-    const { classes, onRowClick } = this.props;
-
-    return clsx(classes.tableRow, classes.flexContainer, {
-      [classes.tableRowHover]: index !== -1 && onRowClick != null
-    });
-  };
-
-  cellRenderer = ({ cellData, columnIndex }) => {
-      const { columns, classes, rowHeight, onRowClick } = this.props;
-      return (
-      <TableCell
-        component='div'
-        className={clsx(classes.tableCell, classes.flexContainer, {
-          [classes.noClick]: onRowClick == null
-        })}
-        variant='body'
-        style={{ height: rowHeight, minWidth: '150px' }}
-        align={(columnIndex != null && columns[columnIndex].numeric) || false ? 'right' : 'left'}
-      >
-        {cellData}
-      </TableCell>
-      );
-  };
-
-  headerRenderer = ({ label, columnIndex }) => {
-      const { headerHeight, columns, classes } = this.props;
-
-      return (
-      <TableCell
-        component='div'
-        className={clsx(classes.tableCell, classes.flexContainer, classes.noClick)}
-        variant='head'
-        style={{ height: headerHeight, minWidth: '150px' }}
-        align={columns[columnIndex].numeric || false ? 'right' : 'left'}
-      >
-        <span>{label}</span>
-      </TableCell>
-      );
-  };
-
+@observer
+class TableCell extends React.Component {
   render () {
-      const { classes, columns, rowHeight, headerHeight, ...tableProps } = this.props;
-      return (
-      <AutoSizer>
-        {({ height, width }) => (
-          <Table
-            height={height}
-            width={width}
-            rowHeight={rowHeight}
-            gridStyle={{
-              direction: 'inherit'
-            }}
-            headerHeight={headerHeight}
-            className={classes.table}
-            {...tableProps}
-            rowClassName={this.getRowClassName}
-          >
-            {columns.map(({ dataKey, ...other }, index) => {
-              return (
-                <Column
-                  key={dataKey}
-                  headerRenderer={(headerProps) =>
-                    this.headerRenderer({
-                    ...headerProps,
-                    columnIndex: index
-                    })
-                  }
-                  className={classes.flexContainer}
-                  cellRenderer={this.cellRenderer}
-                  dataKey={dataKey}
-                  {...other}
-                />
-              );
-            })}
-          </Table>
-          )}
-      </AutoSizer>
-      );
-  }
-}
-
-const VirtualizedTable = withStyles(styles)(MuiVirtualizedTable);
-
-const sample = [
-  ['Frozen yoghurt', 159, 6.0, 24, 4.0],
-  ['Ice cream sandwich', 237, 9.0, 37, 4.3],
-  ['Eclair', 262, 16.0, 24, 6.0],
-  ['Cupcake', 305, 3.7, 67, 4.3],
-  ['Gingerbread', 356, 16.0, 49, 3.9]
-];
-
-/**
- *
- * @param {*} id
- * @param {*} dessert
- * @param {*} calories
- * @param {*} fat
- * @param {*} carbs
- * @param {*} protein
- */
-function createData (id, dessert, calories, fat, carbs, protein) {
-  return { id, dessert, calories, fat, carbs, protein };
-}
-
-const rows = [];
-
-for (let i = 0; i < 200; i += 1) {
-  const randomSelection = sample[Math.floor(Math.random() * sample.length)];
-  rows.push(createData(i, ...randomSelection));
-}
-
-export default class ResponseTable extends React.Component {
-  render () {
-    const { entries } = this.props;
+    const { content } = this.props;
 
     return (
-      <Paper style={{ height: '100%', width: '100%' }}>
-        <VirtualizedTable
-          rowCount={entries.length}
-          rowGetter={({ index }) => entries[index]}
-          columns={getColumnsFromRow(entries[0])}
-        />
+      <div title={content} className='response-table__cell'>
+        {content}
+      </div>
+    );
+  }
+}
+
+@observer
+class TableHeader extends React.Component {
+  render () {
+    const { item } = this.props;
+
+    return (
+      <div className='response-table__header'>
+        {
+          map(item, (value, key) => (
+            <TableCell key={key} content={key} />
+          ))
+        }
+      </div>
+    );
+  }
+}
+
+@observer
+class TableRow extends React.Component {
+  render () {
+    const { item } = this.props;
+
+    return (
+      <div className='response-table__row'>
+        {
+          map(item, (value) => (
+            <TableCell key={value} content={value} />
+          ))
+        }
+      </div>
+    );
+  }
+}
+
+@observer
+export default class ResponseTable extends React.Component {
+  constructor () {
+    super();
+  }
+
+  componentDidMount () {
+    this.$headerNode = findDOMNode(this.headerRef);
+
+    this.resizeObserver = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        if (!(entry && entry.target)) {
+          return;
+        }
+
+        this.scrollWidth = entry.target.scrollWidth;
+      }
+    });
+
+    this.resizeObserver && this.resizeObserver.observe(this.$headerNode);
+  }
+
+  componentWillUnmount () {
+    this.resizeObserver && this.resizeObserver.unobserve(this.$headerNode);
+  }
+
+  getListItem ({ style, index }) {
+    const item = this.props.entries[index],
+      { selectResponse } = getStore('ResponseStore');
+
+    return (
+      <div
+        onClick={selectResponse.bind(this, index)}
+        style={style}
+        className='response-table__virtualized-row'
+      >
+        <TableRow item={item} />
+      </div>
+    );
+  }
+
+  render () {
+    const { entries } = this.props,
+      lister = (data) => (
+        <Observer>
+          {this.getListItem.bind(this, data)}
+        </Observer>
+      );
+
+    return (
+      <Paper className='response-table__paper'>
+        <div className='response-table__wrapper'>
+          <TableHeader ref={(ref) => this.headerRef = ref} item={entries[0]} />
+          <div className='response-table__list'>
+            <AutoSizer>
+              {({ height, width }) => (
+                <VirtualizedList
+                  height={height}
+                  width={this.scrollWidth > width ? this.scrollWidth : width}
+                  itemCount={entries.length}
+                  itemSize={ITEM_HEIGHT}
+                  ref={(ref) => { this.listRef = ref; }}
+                  className='response-table__virtualized-list'
+                >
+                  {lister}
+                </VirtualizedList>
+              )}
+            </AutoSizer>
+          </div>
+        </div>
       </Paper>
     );
   }

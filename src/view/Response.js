@@ -8,9 +8,8 @@ import {
 } from '../constants/ResponseConstants';
 import { Loader } from './Loader';
 import '../styles/response.css';
-import { DataGrid } from '@material-ui/data-grid';
-import { map, assign } from 'lodash';
 import ResponseTable from './ResponseTable';
+import ResponseMeta from './ResponseMeta';
 
 @observer
 export default class Response extends React.Component {
@@ -53,7 +52,7 @@ export default class Response extends React.Component {
       case RESPONSE_TYPE_TABLE: {
         return (
           <div className='response-table'>
-            {/* <DataGrid rows={entries} columns={getColumnsFromRow(entries[0])} pageSize={5} /> */}
+            <ResponseMeta />
             <ResponseTable
               entries={entries}
             />
