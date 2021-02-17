@@ -27,6 +27,12 @@ export default class Editor extends React.Component {
     }
   }
 
+  componentDidUpdate (prevProps) {
+    if (prevProps.value !== this.props.value) {
+      this.editor.setValue(this.props.value);
+    }
+  }
+
   importMonaco () {
     import('monaco-editor/esm/vs/editor/editor.api')
       .then((monaco) => {
@@ -64,11 +70,9 @@ export default class Editor extends React.Component {
   }
 
   getMonacoOptions () {
-    const EditorStore = getStore('EditorStore');
-
     return {
       // options
-      value: EditorStore.query,
+      value: this.props.value,
       minimap: { enabled: false },
 
       // readOnly: this.props.readOnly,

@@ -25,8 +25,7 @@ export default class App extends React.Component {
   }
 
   render () {
-    const UIStore = getStore('UIStore'),
-      { isEditorCollapsed } = UIStore || {};
+    const { query } = getStore('EditorStore');
 
     return (
       <div className='App'>
@@ -45,7 +44,10 @@ export default class App extends React.Component {
               initialSize='50%'
               minSize='25%'
             >
-              <Editor ref={(ref) => this.editorRef = ref} />
+              <Editor
+                ref={(ref) => this.editorRef = ref}
+                value={query}
+              />
             </Pane>
             <Pane
               className='pane response-pane'
