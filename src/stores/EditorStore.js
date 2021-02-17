@@ -23,7 +23,10 @@ export default class EditorStore {
 
     return QueryExecutionService.execute(this.query)
       .then((response) => {
+        const { entries, type } = response;
+
         getStore('ResponseStore').setResponse(response);
+        getStore('HistoryStore').addHistory(this.query, { entries, type });
       });
   }
 }

@@ -24,7 +24,7 @@ export default class SidebarHistory extends React.Component {
   }
 
   render () {
-    const { entries } = getStore('HistoryStore'),
+    const { entries, openHistory } = getStore('HistoryStore'),
     lister = ({ style, index }) => {
       const item = entries[index];
 
@@ -33,6 +33,7 @@ export default class SidebarHistory extends React.Component {
           title={item.query}
           className='history__list-item'
           style={style}
+          onClick={openHistory.bind(this, index)}
         >
           {item.query}
         </div>

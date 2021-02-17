@@ -163,16 +163,15 @@ export default class Editor extends React.Component {
   }
 
   render () {
-    const UIStore = getStore('UIStore'),
-      EditorStore = getStore('EditorStore'),
-      { isEditorCollapsed } = UIStore || {};
+    const { runQuery, query } = getStore('EditorStore'),
+      { isResponseLoading } = getStore('UIStore');
 
     return (
       <div
         style={{
           textAlign: 'left',
           height: '100%',
-          display: isEditorCollapsed ? 'none' : 'flex',
+          display: 'flex',
           flexDirection: 'column'
         }}
         className='editor'
@@ -184,8 +183,8 @@ export default class Editor extends React.Component {
           <Button
             color='primary'
             variant='contained'
-            onClick={EditorStore.runQuery}
-            disabled={!EditorStore.query}
+            onClick={runQuery}
+            disabled={!query || isResponseLoading}
           >
             Run
           </Button>

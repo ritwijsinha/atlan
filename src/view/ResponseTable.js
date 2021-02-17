@@ -98,7 +98,7 @@ export default class ResponseTable extends React.Component {
   }
 
   render () {
-    const { entries } = this.props,
+    const { entries = [] } = this.props,
       lister = (data) => (
         <Observer>
           {this.getListItem.bind(this, data)}

@@ -19,7 +19,7 @@ export default class ResponseMeta extends React.Component {
   }
 
   render () {
-    const { entries } = getStore('ResponseStore');
+    const { entries = [] } = getStore('ResponseStore');
 
     return (
       <div className='response-table__meta'>

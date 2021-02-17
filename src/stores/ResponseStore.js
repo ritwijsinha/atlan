@@ -47,15 +47,15 @@ export default class ResponseStore {
 
   setResponse (response) {
     const { entries, type } = response,
-      { setResponseLoading } = getStore('UIStore'),
-      { addHistory } = getStore('HistoryStore'),
-      { query } = getStore('EditorStore');
+      { setResponseLoading } = getStore('UIStore');
 
     this.type = type;
     this.responseData = entries;
 
     setResponseLoading(false);
-    addHistory(query, { type: this.type, responseData: this.responseData });
+
+    // Reset filter query
+    this.setFilterQuery('');
   }
 
   setFilterQuery (value) {
@@ -64,5 +64,8 @@ export default class ResponseStore {
 
   selectResponse (index) {
     this.selectedIndex = index;
+
+    // Set the current Sidebar tab to 'Info'
+    getStore('UIStore').setActiveSidebarTab(0);
   }
 }

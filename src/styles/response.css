@@ -83,6 +83,9 @@
   align-items: center;
   justify-content: center;
   border-right: thin solid rgba(240, 240, 240, 1);
+  border-bottom: thin solid rgba(240, 240, 240, 1);
+  box-sizing: border-box;
+
 }
 
 .response-table__virtualized-list {
@@ -91,6 +94,5 @@
 }
 
 .response-table__virtualized-row {
-  border-bottom: thin solid rgba(240, 240, 240, 1);
   box-sizing: border-box;
 }
