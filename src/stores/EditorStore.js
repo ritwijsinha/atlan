@@ -19,6 +19,8 @@ export default class EditorStore {
   }
 
   runQuery () {
+    getStore('UIStore').setResponseLoading(true);
+
     return QueryExecutionService.execute(this.query)
       .then((response) => {
         getStore('ResponseStore').setResponse(response);

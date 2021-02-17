@@ -30,11 +30,15 @@ export default class App extends React.Component {
 
     return (
       <div className='App'>
+        <div className='header'>
+          SQL Editor
+        </div>
         <SplitPane onChange={this.debouncedHandleResize} split='vertical'>
           <SplitPane
             initialSize='75%'
             minSize='50%'
             split='horizontal'
+            onChange={this.debouncedHandleResize}
           >
             <Pane
               className='pane editor-pane'

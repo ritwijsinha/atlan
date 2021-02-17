@@ -6,14 +6,17 @@ export default class UIStore {
     this.isEditorCollapsed = false;
     this.isResponseCollapsed = false;
     this.activeSidebarTab = 0;
+    this.isResponseLoading = false;
 
     makeObservable(this, {
       isEditorCollapsed: observable,
       isResponseCollapsed: observable,
       activeSidebarTab: observable,
+      isResponseLoading: observable,
       collapseEditor: action,
       collapseResponse: action,
-      setActiveSidebarTab: action
+      setActiveSidebarTab: action,
+      setResponseLoading: action
     });
   }
 
@@ -27,5 +30,9 @@ export default class UIStore {
 
   setActiveSidebarTab (value) {
     !isNil(value) && (this.activeSidebarTab = value);
+  }
+
+  setResponseLoading (value) {
+    !isNil(value) && (this.isResponseLoading = value);
   }
 }

@@ -1,5 +1,6 @@
 import { observable, makeObservable, action } from 'mobx';
 import { isNil } from 'lodash';
+import { getStore } from './get-store';
 
 export default class ResponseStore {
   constructor () {
@@ -19,6 +20,6 @@ export default class ResponseStore {
     this.type = type;
     this.entries = entries;
 
-    console.log(this);
+    getStore('UIStore').setResponseLoading(false);
   }
 }

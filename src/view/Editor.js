@@ -2,6 +2,7 @@ import { observer } from 'mobx-react';
 import React from 'react';
 import { getStore } from '../stores/get-store';
 import { Button } from '@material-ui/core';
+import '../styles/editor.css';
 
 @observer
 export default class Editor extends React.Component {
@@ -155,13 +156,8 @@ export default class Editor extends React.Component {
     return {
       display: 'flex',
       flexDirection: 'column',
-
-      // width: '80%',
-      // minHeight: '350px',
       marginTop: '16px',
-      height: '75%',
-
-      // flex: '1 1 auto',
+      flex: '1',
       border: 'thin solid rgba(0, 0, 0, 0.2)'
     };
   }
@@ -174,9 +170,6 @@ export default class Editor extends React.Component {
     return (
       <div
         style={{
-          // height: '350px',
-
-          // width: '80%',
           textAlign: 'left',
           height: '100%',
           display: isEditorCollapsed ? 'none' : 'flex',
@@ -185,8 +178,8 @@ export default class Editor extends React.Component {
         className='editor'
       >
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <div style={{ flex: '1 1 auto' }}>
-            Editor
+          <div style={{ flex: '1 1 auto', fontWeight: '600', fontSize: '18px' }}>
+            Query Editor
           </div>
           <Button
             color='primary'
