@@ -27,10 +27,10 @@ export default class Editor extends React.Component {
     }
   }
 
-  componentDidUpdate (prevProps) {
-    if (prevProps.value !== this.props.value) {
-      this.editor.setValue(this.props.value);
-    }
+  componentDidUpdate () {
+    const { query } = getStore('EditorStore');
+
+    this.editor.setValue(query);
   }
 
   importMonaco () {
@@ -70,9 +70,11 @@ export default class Editor extends React.Component {
   }
 
   getMonacoOptions () {
+    const { query } = getStore('EditorStore');
+
     return {
       // options
-      value: this.props.value,
+      value: query,
       minimap: { enabled: false },
 
       // readOnly: this.props.readOnly,

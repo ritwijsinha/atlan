@@ -25,8 +25,6 @@ export default class App extends React.Component {
   }
 
   render () {
-    const { query } = getStore('EditorStore');
-
     return (
       <div className='App'>
         <div className='header'>
@@ -44,10 +42,7 @@ export default class App extends React.Component {
               initialSize='50%'
               minSize='25%'
             >
-              <Editor
-                ref={(ref) => this.editorRef = ref}
-                value={query}
-              />
+              <Editor ref={(ref) => this.editorRef = ref} />
             </Pane>
             <Pane
               className='pane response-pane'
