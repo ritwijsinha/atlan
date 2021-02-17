@@ -20,14 +20,13 @@
   font-size: 13px;
   border-radius: 3px;
   padding: 4px 8px;
-  background: rgba(240, 240, 240, 0.7);
+  background: rgba(64, 81, 181, 0.1);
 }
 
 .sidebar-info__entry-value {
   font-size: 16px;
   padding: 4px;
   margin-top: 8px;
-  /* font-family: monospace; */
 }
 
 /* History */
@@ -60,5 +59,5 @@
 }
 
 .history__list-item:hover {
-  background: rgba(240, 240, 240, 0.7);
+  background: rgba(64, 81, 181, 0.05);
 }
