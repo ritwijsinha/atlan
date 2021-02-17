@@ -1,9 +1,10 @@
 import { observer } from 'mobx-react';
-import React, { Component } from 'react';
+import React from 'react';
 import { getStore } from '../stores/get-store';
+import { Button } from '@material-ui/core';
 
 @observer
-export default class Editor extends Component {
+export default class Editor extends React.Component {
   constructor () {
     super();
 
@@ -145,34 +146,56 @@ export default class Editor extends Component {
       // dragAndDrop: true
 
       formatOnPaste: true,
-      tabCompletion: 'on'
+      tabCompletion: 'on',
+      automaticLayout: true
     };
   }
 
   getEditorNodeStyles () {
     return {
       display: 'flex',
-      flex: 1,
       flexDirection: 'column',
-      width: '400px',
-      height: '250px',
-      marginTop: '70px'
+
+      // width: '80%',
+      // minHeight: '350px',
+      marginTop: '16px',
+      height: '75%',
+
+      // flex: '1 1 auto',
+      border: 'thin solid rgba(0, 0, 0, 0.2)'
     };
   }
 
   render () {
     const UIStore = getStore('UIStore'),
+      EditorStore = getStore('EditorStore'),
       { isEditorCollapsed } = UIStore || {};
 
     return (
       <div
         style={{
-          height: '250px',
-          width: '400px',
+          // height: '350px',
+
+          // width: '80%',
           textAlign: 'left',
-          display: isEditorCollapsed ? 'none' : 'block'
+          height: '100%',
+          display: isEditorCollapsed ? 'none' : 'flex',
+          flexDirection: 'column'
         }}
+        className='editor'
       >
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div style={{ flex: '1 1 auto' }}>
+            Editor
+          </div>
+          <Button
+            color='primary'
+            variant='contained'
+            onClick={EditorStore.runQuery}
+          >
+            Run
+          </Button>
+        </div>
         <div
           ref={(node) => this._node = node}
           style={this.getEditorNodeStyles()}
