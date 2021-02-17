@@ -3,29 +3,15 @@ import { isNil } from 'lodash';
 
 export default class UIStore {
   constructor () {
-    this.isEditorCollapsed = false;
-    this.isResponseCollapsed = false;
     this.activeSidebarTab = 0;
     this.isResponseLoading = false;
 
     makeObservable(this, {
-      isEditorCollapsed: observable,
-      isResponseCollapsed: observable,
       activeSidebarTab: observable,
       isResponseLoading: observable,
-      collapseEditor: action.bound,
-      collapseResponse: action.bound,
       setActiveSidebarTab: action.bound,
       setResponseLoading: action.bound
     });
-  }
-
-  collapseEditor (value) {
-    !isNil(value) && (this.isEditorCollapsed = value);
-  }
-
-  collapseResponse (value) {
-    !isNil(value) && (this.isResponseCollapsed = value);
   }
 
   setActiveSidebarTab (value) {

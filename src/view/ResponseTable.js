@@ -84,13 +84,13 @@ export default class ResponseTable extends React.Component {
 
   getListItem ({ style, index }) {
     const item = this.props.entries[index],
-      { selectResponse } = getStore('ResponseStore');
+      { selectResponse, selectedIndex } = getStore('ResponseStore');
 
     return (
       <div
         onClick={selectResponse.bind(this, index)}
         style={style}
-        className='response-table__virtualized-row'
+        className={`response-table__virtualized-row ${selectedIndex === index && 'active'}`}
       >
         <TableRow item={item} />
       </div>

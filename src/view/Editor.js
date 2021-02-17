@@ -82,7 +82,7 @@ export default class Editor extends React.Component {
       wordWrap: 'on',
 
       // fontFamily: getSettingValue('editorFontFamily'),
-      language: 'javascript',
+      language: 'sql',
       links: false,
 
       // config to set allow the auto complete only in string and other areas except comments

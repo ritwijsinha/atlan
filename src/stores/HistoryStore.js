@@ -81,5 +81,6 @@ export default class HistoryStore {
 
     getStore('EditorStore').setQuery(query);
     getStore('ResponseStore').setResponse(response);
+    getStore('ResponseStore').resetSelectedResponse();
   }
 }

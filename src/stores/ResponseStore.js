@@ -17,6 +17,7 @@ export default class ResponseStore {
       setResponse: action,
       setFilterQuery: action.bound,
       selectResponse: action.bound,
+      resetSelectedResponse: action.bound,
       entries: computed
     });
   }
@@ -60,6 +61,10 @@ export default class ResponseStore {
 
   setFilterQuery (value) {
     !isNil(value) && (this.filterQuery = value);
+  }
+
+  resetSelectedResponse () {
+    this.selectedIndex = null;
   }
 
   selectResponse (index) {
