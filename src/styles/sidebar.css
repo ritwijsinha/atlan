@@ -9,6 +9,7 @@
 /* Info */
 .sidebar-info__wrapper {
   padding: 8px;
+  overflow: auto;
 }
 
 .sidebar-info__empty {

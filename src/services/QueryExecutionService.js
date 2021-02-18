@@ -28,7 +28,13 @@ const BASE_URL = 'https://d165ca57-ff45-4431-9734-1035838a3cb9.mock.pstmn.io',
      * @param {String} query SQL Query to process
      */
     select (query) {
-      return fetch(`${BASE_URL}/select`, { method: 'POST', body: JSON.stringify(query) })
+      return fetch(`${BASE_URL}/select`, {
+        method: 'POST',
+        body: JSON.stringify(query),
+        headers: {
+          'x-mock-response-name': 'Default2'
+        }
+      })
         .then((response) => response.json());
     },
 

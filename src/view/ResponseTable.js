@@ -114,6 +114,7 @@ export default class ResponseTable extends React.Component {
         }
 
         this.scrollWidth = entry.target.scrollWidth;
+        this.forceUpdate();
       }
     });
 

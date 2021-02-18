@@ -90,10 +90,12 @@
   flex: 0 0 150px;
   display: flex;
   align-items: center;
-  justify-content: center;
   border-right: thin solid rgba(240, 240, 240, 1);
   border-bottom: thin solid rgba(240, 240, 240, 1);
   box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 0 4px;
 
 }
 
