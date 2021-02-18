@@ -11,12 +11,43 @@ const ITEM_HEIGHT = 32;
 
 @observer
 class TableCell extends React.Component {
+  constructor () {
+    super();
+
+    this.handleClick = this.handleClick.bind(this);
+    this.getArrow = this.getArrow.bind(this);
+  }
+
+  handleClick () {
+    this.props.onClick && this.props.onClick();
+  }
+
+  getArrow () {
+    switch (this.props.renderArrow) {
+      case 'asc': {
+        return '↑';
+      }
+
+      case 'desc': {
+        return '↓';
+      }
+
+      default:
+        return null;
+    }
+  }
+
   render () {
     const { content } = this.props;
 
     return (
-      <div title={content} className='response-table__cell'>
+      <div
+        title={content}
+        className='response-table__cell'
+        onClick={this.handleClick}
+      >
         {content}
+        {this.getArrow()}
       </div>
     );
   }
@@ -25,14 +56,25 @@ class TableCell extends React.Component {
 @observer
 class TableHeader extends React.Component {
   render () {
-    const { item } = this.props;
+    const { item } = this.props,
+      { sortedBy, sortOrder, setSortBy } = getStore('ResponseStore');
 
     return (
       <div className='response-table__header'>
         {
-          map(item, (value, key) => (
-            <TableCell key={key} content={key} />
-          ))
+          map(item, (value, key) => {
+            const isSortedWithCurrentColumn = (key === sortedBy),
+              shouldRenderArrow = isSortedWithCurrentColumn && sortOrder;
+
+            return (
+              <TableCell
+                key={key}
+                content={key}
+                renderArrow={shouldRenderArrow}
+                onClick={setSortBy.bind(this, key)}
+              />
+            );
+          })
         }
       </div>
     );
