@@ -46,7 +46,9 @@ class TableCell extends React.Component {
         className='response-table__cell'
         onClick={this.handleClick}
       >
-        {content}
+        <div className='response-table__cell-text'>
+          {content}
+        </div>
         {this.getArrow()}
       </div>
     );
