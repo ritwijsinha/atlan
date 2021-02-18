@@ -163,6 +163,7 @@ export default class ResponseTable extends React.Component {
                   itemCount={entries.length}
                   itemSize={ITEM_HEIGHT}
                   ref={(ref) => { this.listRef = ref; }}
+                  overscanCount={10}
                   className='response-table__virtualized-list'
                 >
                   {lister}
