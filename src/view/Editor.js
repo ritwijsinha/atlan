@@ -116,17 +116,9 @@ export default class Editor extends React.Component {
       { isResponseLoading } = getStore('UIStore');
 
     return (
-      <div
-        style={{
-          textAlign: 'left',
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column'
-        }}
-        className='editor'
-      >
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <div style={{ flex: '1 1 auto', fontWeight: '600', fontSize: '18px' }}>
+      <div className='editor'>
+        <div className='editor-header'>
+          <div className='editor-label'>
             Query Editor
           </div>
           <Button

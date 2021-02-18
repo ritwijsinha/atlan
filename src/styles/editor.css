@@ -2,4 +2,18 @@
   padding: 16px;
   height: 100%;
   box-sizing: border-box;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.editor-header {
+  display: flex;
+  align-items: center;
+}
+
+.editor-label {
+  flex: 1 1 auto;
+  font-weight: 600;
+  font-size: 18px;
 }
