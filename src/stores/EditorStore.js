@@ -14,10 +14,12 @@ export default class EditorStore {
     });
   }
 
+  // Setter method to modify the SQL Query in Editor
   setQuery (value) {
     !isNil(value) && (this.query = value);
   }
 
+  // Helper method which runs the Query
   runQuery () {
     getStore('UIStore').setResponseLoading(true);
 

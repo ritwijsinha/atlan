@@ -18,12 +18,16 @@ export default class HistoryStore {
       entries: computed
     });
 
+    // Get History from `localStorage`
     const historyItems = localStorage.getItem('history');
 
+    // If `localStorage` doesn't have history, initialize it
     if (!historyItems) {
       localStorage.setItem('history', '{}');
     }
     else {
+
+      // Add history to the store fetched from `localStorage`
       const historyToAdd = JSON.parse(historyItems);
 
       forEach(historyToAdd, (historyItem, time) => {
@@ -32,6 +36,8 @@ export default class HistoryStore {
     }
   }
 
+  // `computed` property to provide reactive data to UI
+  // with History sorted in descending order on the basis of time of creation.
   get entries () {
     const filteredEntries = this.filteredEntries,
       sortedEntries = orderBy(filteredEntries, ['time'], ['desc']);
@@ -39,6 +45,7 @@ export default class HistoryStore {
     return map(sortedEntries, (entry) => entry.value);
   }
 
+  // `computed` property to provide reactive data with the current `filterQuery`
   get filteredEntries () {
     const arrayWithTime = Array.from(this.historyData, ([time, value]) => ({ time, value }));
 
@@ -53,10 +60,12 @@ export default class HistoryStore {
     });
   }
 
+  // Helper method to add a new History item to the store
   addHistoryInStore (time, historyItem) {
     this.historyData.set(time, historyItem);
   }
 
+  // Helper method to add a new History item in store + persistent storage (localStorage)
   addHistory (query, response) {
     const currentTime = Date.now(),
       historyItem = { query, response },
@@ -68,10 +77,12 @@ export default class HistoryStore {
     localStorage.setItem('history', JSON.stringify(itemsInStorage));
   }
 
+  // Setter method to change the `filterQuery`
   setFilterQuery (value) {
     !isNil(value) && (this.filterQuery = value);
   }
 
+  // Helper method to open the History being clicked on in the Sidebar
   openHistory (index) {
     if (isNil(index)) {
       return;

@@ -22,6 +22,8 @@ export default class ResponseStore {
     });
   }
 
+  // `computed` property to provide reactive data to UI
+  // with respect to the `filterQuery`
   get entries () {
     if (!this.filterQuery.trim()) {
       return this.responseData;
@@ -46,6 +48,7 @@ export default class ResponseStore {
     });
   }
 
+  // Setter method to change the view with respect to the active Response
   setResponse (response) {
     const { entries, type } = response,
       { setResponseLoading } = getStore('UIStore');
@@ -59,14 +62,17 @@ export default class ResponseStore {
     this.setFilterQuery('');
   }
 
+  // Setter method to modify the `filterQuery`
   setFilterQuery (value) {
     !isNil(value) && (this.filterQuery = value);
   }
 
+  // Resets the current selection for Info section in Sidebar
   resetSelectedResponse () {
     this.selectedIndex = null;
   }
 
+  // Helper method to select a row in Response
   selectResponse (index) {
     this.selectedIndex = index;
 

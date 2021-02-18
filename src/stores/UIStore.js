@@ -14,10 +14,15 @@ export default class UIStore {
     });
   }
 
+  // Setter method to change the active Tab in Sidebar
   setActiveSidebarTab (value) {
     !isNil(value) && (this.activeSidebarTab = value);
   }
 
+  // Setter method to change the loading state of the response
+  //
+  // We need it because we're making an API call and would want to notify
+  // users that they're query is being processed.
   setResponseLoading (value) {
     !isNil(value) && (this.isResponseLoading = value);
   }

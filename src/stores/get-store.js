@@ -5,6 +5,9 @@ let _storesCache = {};
 /**
  * Returns the store instance for any model.
  *
+ * This is created so that we can lazily initialize the stores
+ * only when they are required
+ *
  * @param {String} storeName
  */
 function getStore (storeName) {

@@ -1,7 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import '../styles/App.css';
-import { getStore } from '../stores/get-store';
 import Editor from './Editor';
 import Response from './Response';
 import SplitPane from 'react-split-pane';
@@ -10,7 +9,7 @@ import Sidebar from './Sidebar';
 import { debounce } from 'lodash';
 
 @observer
-export default class App extends React.Component {
+export default class SQLEditor extends React.Component {
   constructor () {
     super();
 
