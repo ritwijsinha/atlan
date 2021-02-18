@@ -15,7 +15,7 @@
 }
 
 /* Response Text */
-.response-text {
+.response-text, .response-empty {
   padding: 16px;
   border-radius: 3px;
   border: thin solid rgba(230, 230, 230, 1);
