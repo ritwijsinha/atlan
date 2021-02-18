@@ -27,6 +27,14 @@ export default class EditorStore {
 
         getStore('ResponseStore').setResponse(response);
         getStore('HistoryStore').addHistory(this.query, { entries, type });
+      })
+      .catch(() => {
+        const response = {
+          type: 'text',
+          entries: 'Unsupported query'
+        };
+
+        getStore('ResponseStore').setResponse(response);
       });
   }
 }

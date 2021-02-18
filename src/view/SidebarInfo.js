@@ -11,7 +11,7 @@ export default class SidebarInfo extends React.Component {
 
   render () {
     const { selectedIndex, entries } = getStore('ResponseStore'),
-      selectedItem = entries[selectedIndex];
+      selectedItem = selectedIndex && entries && entries[selectedIndex];
 
     return (
       <div className='sidebar-info__wrapper'>
