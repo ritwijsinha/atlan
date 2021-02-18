@@ -11,6 +11,12 @@
   padding: 8px;
 }
 
+.sidebar-info__empty {
+  margin-top: 24px;
+  width: 100%;
+  text-align: center;
+}
+
 .sidebar-info__entry {
   margin: 24px 0;
 }

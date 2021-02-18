@@ -17,7 +17,9 @@ export default class SidebarInfo extends React.Component {
       <div className='sidebar-info__wrapper'>
         {
           isNil(selectedIndex) ?
-          'Select a response to view details' :
+          <div className='sidebar-info__empty'>
+            Select a response to view details
+          </div> :
           <div className='sidebar-info'>
             {
               map(selectedItem, (value, key) => (

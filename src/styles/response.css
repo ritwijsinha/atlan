@@ -14,6 +14,14 @@
   width: 100%;
 }
 
+/* Response Text */
+.response-text {
+  padding: 16px;
+  border-radius: 3px;
+  border: thin solid rgba(230, 230, 230, 1);
+  height: 100%;
+}
+
 /* Response Table */
 
 .response-table {
