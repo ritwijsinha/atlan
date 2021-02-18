@@ -1,7 +1,7 @@
 {
   "name": "atlan",
   "version": "0.1.0",
-  "homepage": "https://ritwij.com/atlan",
+  "homepage": ".",
   "private": true,
   "dependencies": {
     "@babel/core": "7.12.3",
