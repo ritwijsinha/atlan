@@ -1,5 +1,8 @@
 # SQL Editor
 
+## Demo
+[https://ritwij.com/atlan](https://ritwij.com/atlan)
+
 ## Supported features
 - `SELECT` / `CREATE` / `UPDATE` / `DELETE` queries
 - Persistent (storage) History of the previous queries
@@ -35,4 +38,14 @@ src
 - Stores
 
 ## Performance
-_to be filled_
+- First meaningful paint: ~150ms
+- App fully loaded: ~450ms
+
+_Measured using `Performance` tab in Chrome DevTools_
+
+## Performance Optimizations
+- Virtualized Response Table
+- Virtualized History (Sidebar)
+- Lazily loaded Monaco Editor, to unblock rendering
+- Lazily initialized all the Stores (MobX)
+- Load bare-bones of the app, for the first load.
