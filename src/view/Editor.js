@@ -15,6 +15,8 @@ export default class Editor extends React.Component {
 
 
   componentDidMount () {
+
+    // Lazily import monaco-editor to unblock rendering
     this.importMonaco();
   }
 
